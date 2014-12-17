@@ -17,6 +17,8 @@ public class HomeActivity extends ActionBarActivity {
         setContentView(R.layout.activity_home);
 
         this.setupHome();
+
+
     }
 
     private void setupHome(){

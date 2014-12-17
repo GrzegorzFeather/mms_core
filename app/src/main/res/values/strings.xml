@@ -3,4 +3,8 @@
 
     <string name="app_name">Vendetta</string>
 
+    <!-- UI Configurations -->
+    <!-- User UI Configuration -->
+    <string name="user_config_visible_name">User</string>
+
 </resources>
