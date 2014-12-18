@@ -14,4 +14,9 @@ public class MMSApplication extends Application {
         super.onCreate();
         MMSPreferences.init(this);
     }
+
+    public boolean isLoggedIn(){
+        return MMSPreferences.containsPreference(MMSPreferences.AUTH_TOKEN);
+    }
+
 }

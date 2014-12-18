@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mmsPrimaryDark">#0288D1</color>
+    <color name="mmsPrimary">#03A9F4</color>
+    <color name="mmsAccent">#E040FB</color>
+</resources>

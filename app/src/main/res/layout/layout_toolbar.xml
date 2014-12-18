@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mms="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:minHeight="?attr/actionBarSize"
+            android:background="@color/mmsPrimary"
+            mms:theme="@style/ThemeOverlay.MMS.ActionBar"
+            mms:popupTheme="@style/ThemeOverlay.MMS.Light"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp">
+
+            <com.mms.ui.widget.TypeFacedTextView
+                android:id="@+id/lbl_main_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="21sp"
+                mms:typeface="fonts/RobotoCondensed-Regular.ttf"
+                android:textColor="@android:color/white"/>
+
+            <com.mms.ui.widget.TypeFacedTextView
+                android:id="@+id/lbl_main_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                mms:typeface="fonts/RobotoCondensed-Light.ttf"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</merge>

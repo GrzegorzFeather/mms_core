@@ -12,9 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mms.vendetta.R;
 import com.mms.app.AppConfiguration;
+import com.mms.ui.MenuHostActivity;
 import com.mms.ui.adapter.HomeMenuAdapter;
+import com.mms.vendetta.R;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -23,6 +24,8 @@ import butterknife.InjectView;
  * Created by GrzegorzFeathers on 10/27/14.
  */
 public class HomeMenuFragment extends Fragment {
+
+    public static final String TAG = HomeMenuFragment.class.getSimpleName();
 
     private View mRootView;
     private DrawerLayout mDrawerLayout;
@@ -46,7 +49,7 @@ public class HomeMenuFragment extends Fragment {
 
         this.mRecyclerMenuOptionsView.setHasFixedSize(true);
 
-        this.mRecyclerMenuOptionsManager = new LinearLayoutManager(this.getActivity());
+        this.mRecyclerMenuOptionsManager = new LinearLayoutManager(this.getMenuHostActivity());
         this.mRecyclerMenuOptionsAdapter = new HomeMenuAdapter(AppConfiguration.getMenuOptions());
 
         this.mRecyclerMenuOptionsView.setLayoutManager(this.mRecyclerMenuOptionsManager);
@@ -59,18 +62,18 @@ public class HomeMenuFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        this.mDrawerLayout = (DrawerLayout) this.getActivity().findViewById(R.id.drawer_layout);
+        this.mDrawerLayout = (DrawerLayout) this.getMenuHostActivity().findViewById(R.id.drawer_home);
         this.mDrawerToogle = new ActionBarDrawerToggle(
-                this.getActivity(), this.mDrawerLayout,
-                R.string.app_name, R.string.app_name){
+                this.getMenuHostActivity(), this.mDrawerLayout,
+                this.getMenuHostActivity().getToolbar(), R.string.app_name, R.string.app_name){
             @Override
             public void onDrawerOpened(View drawerView) {
-                getActivity().supportInvalidateOptionsMenu();
+                getMenuHostActivity().supportInvalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
-                getActivity().supportInvalidateOptionsMenu();
+                getMenuHostActivity().supportInvalidateOptionsMenu();
             }
         };
         this.mDrawerLayout.setDrawerListener(this.mDrawerToogle);
@@ -91,6 +94,17 @@ public class HomeMenuFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private MenuHostActivity getMenuHostActivity(){
+        MenuHostActivity menuHostActivity = null;
+        try {
+            menuHostActivity = (MenuHostActivity) this.getActivity();
+        } catch (ClassCastException e) {
+            throw e;
+        } finally {
+            return menuHostActivity;
+        }
     }
 
 }

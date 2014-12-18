@@ -14,6 +14,7 @@ public class MMSPreferences {
 
     // General purpose
     public static final String APP_CONFIG = "app_configuration";
+    public static final String AUTH_TOKEN = "auth_token";
 
     private static SharedPreferences preferences = null;
     private static SharedPreferences.Editor editor = null;

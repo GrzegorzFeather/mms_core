@@ -7,4 +7,10 @@
     <!-- User UI Configuration -->
     <string name="user_config_visible_name">User</string>
 
+    <!-- Home Menu Options -->
+    <string name="home_menu_news">News</string>
+
+    <!-- Overflow menu option -->
+    <string name="menu_logout">Logout</string>
+
 </resources>

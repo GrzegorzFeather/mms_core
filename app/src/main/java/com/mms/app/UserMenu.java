@@ -9,7 +9,7 @@ import com.mms.vendetta.R;
  */
 public enum UserMenu implements AppConfiguration.HomeMenuOption {
 
-    NEWS(Fragment.class, R.string.app_name, R.drawable.ic_launcher, false),
+    NEWS(Fragment.class, R.string.home_menu_news, R.drawable.ic_news, false),
     EVENTS(Fragment.class, R.string.app_name, R.drawable.ic_launcher, true),
     DISCOGRAPHY(Fragment.class, R.string.app_name, R.drawable.ic_launcher, true),
     GALLERY(Fragment.class, R.string.app_name, R.drawable.ic_launcher, true);
