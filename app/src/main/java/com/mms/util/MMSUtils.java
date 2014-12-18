@@ -1,4 +1,4 @@
-package com.mms.vendetta.util;
+package com.mms.util;
 
 /**
  * Created by GrzegorzFeathers on 12/17/14.

@@ -1,4 +1,4 @@
-package com.mms.vendetta.app;
+package com.mms.app;
 
 import android.support.v4.app.Fragment;
 

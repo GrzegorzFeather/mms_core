@@ -1,8 +1,8 @@
-package com.mms.vendetta;
+package com.mms;
 
 import android.app.Application;
 
-import com.mms.vendetta.app.MMSPreferences;
+import com.mms.app.MMSPreferences;
 
 /**
  * Created by GrzegorzFeathers on 12/17/14.

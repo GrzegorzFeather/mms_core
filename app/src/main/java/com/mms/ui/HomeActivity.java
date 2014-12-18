@@ -1,11 +1,11 @@
-package com.mms.vendetta.ui;
+package com.mms.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 
 import com.mms.vendetta.R;
-import com.mms.vendetta.ui.fragment.HomeMenuFragment;
+import com.mms.ui.fragment.HomeMenuFragment;
 
 public class HomeActivity extends ActionBarActivity {
 
