@@ -6,7 +6,7 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.mms.vendetta.R;
+import com.mms.R;
 
 /**
  * Created by GrzegorzFeathers on 12/17/14.

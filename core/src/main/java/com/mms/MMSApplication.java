@@ -2,6 +2,8 @@ package com.mms;
 
 import android.app.Application;
 
+import com.mms.app.AppConfiguration;
+import com.mms.app.BackendConfiguration;
 import com.mms.app.MMSPreferences;
 
 /**
@@ -13,10 +15,15 @@ public class MMSApplication extends Application {
     public void onCreate() {
         super.onCreate();
         MMSPreferences.init(this);
+        AppConfiguration.setBackendConfiguration(this.getBackendConfiguration());
     }
 
     public boolean isLoggedIn(){
         return MMSPreferences.containsPreference(MMSPreferences.AUTH_TOKEN);
+    }
+
+    protected BackendConfiguration getBackendConfiguration(){
+        return AppConfiguration.getDefaultBackendConfiguration();
     }
 
 }

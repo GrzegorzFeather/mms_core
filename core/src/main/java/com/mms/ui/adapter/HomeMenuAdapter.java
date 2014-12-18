@@ -7,14 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mms.vendetta.R;
 import com.mms.app.AppConfiguration;
+import com.mms.R;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by GrzegorzFeathers on 12/17/14.
@@ -45,8 +43,8 @@ public class HomeMenuAdapter extends RecyclerView.Adapter<HomeMenuAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         AppConfiguration.HomeMenuOption option = this.getItem(position);
-        holder.mImgIcon.setImageResource(option.getIconRes());
-        holder.mLblTitle.setText(option.getTitleRes());
+        holder.mImgIcon.get().setImageResource(option.getIconRes());
+        holder.mLblTitle.get().setText(option.getTitleRes());
     }
 
     @Override
@@ -60,12 +58,15 @@ public class HomeMenuAdapter extends RecyclerView.Adapter<HomeMenuAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @InjectView(R.id.img_icon) ImageView mImgIcon;
-        @InjectView(R.id.lbl_title) TextView mLblTitle;
+        private WeakReference<ImageView> mImgIcon;
+        private WeakReference<TextView> mLblTitle;
 
         public ViewHolder(View rootView) {
             super(rootView);
-            ButterKnife.inject(this, rootView);
+            this.mImgIcon = new WeakReference<ImageView>(
+                    (ImageView) rootView.findViewById(R.id.img_icon));
+            this.mLblTitle = new WeakReference<TextView>(
+                    (TextView) rootView.findViewById(R.id.lbl_title));
         }
     }
 

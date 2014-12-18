@@ -8,32 +8,46 @@ import android.support.v4.app.Fragment;
  */
 public class AppConfiguration {
 
-    private static final UIConfiguration defaultConfiguration = UIConfiguration.USER;
+    private static final UIConfiguration defaultUIConfiguration = UIConfiguration.USER;
+    private static final BackendConfiguration defaultBackendConfiguration = new DefaultBackendConfiguration();
 
-    private static UIConfiguration currentConfiguration =
+    private static BackendConfiguration backendConfiguration = defaultBackendConfiguration;
+    private static UIConfiguration currentUIConfiguration =
             UIConfiguration.values()[MMSPreferences.loadInt(
                     MMSPreferences.APP_CONFIG, UIConfiguration.USER.ordinal())];
 
-    public static void setConfiguration(UIConfiguration uiConfiguration){
-        currentConfiguration = uiConfiguration;
+    public static void setUIConfiguration(UIConfiguration uiConfiguration){
+        currentUIConfiguration = uiConfiguration;
         MMSPreferences.saveInt(MMSPreferences.APP_CONFIG, uiConfiguration.ordinal());
     }
 
     public static void restoreConfiguration(){
-        currentConfiguration = defaultConfiguration;
-        MMSPreferences.saveInt(MMSPreferences.APP_CONFIG, defaultConfiguration.ordinal());
+        currentUIConfiguration = defaultUIConfiguration;
+        MMSPreferences.saveInt(MMSPreferences.APP_CONFIG, defaultUIConfiguration.ordinal());
     }
 
     public static HomeMenuOption getDefaultMenuOption(){
-        return currentConfiguration.getDefaultMenuOption();
+        return currentUIConfiguration.getDefaultMenuOption();
     }
 
     public static HomeMenuOption[] getMenuOptions(){
-        return currentConfiguration.getMenuOptions();
+        return currentUIConfiguration.getMenuOptions();
     }
 
-    public static UIConfiguration getCurrentConfiguration(){
-        return currentConfiguration;
+    public static UIConfiguration getCurrentUIConfiguration(){
+        return currentUIConfiguration;
+    }
+
+    public static BackendConfiguration getDefaultBackendConfiguration(){
+        return defaultBackendConfiguration;
+    }
+
+    public static void setBackendConfiguration(BackendConfiguration configuration){
+        backendConfiguration = configuration;
+    }
+
+    public static BackendConfiguration getBackendConfiguration(){
+        return backendConfiguration;
     }
 
     public enum UIConfiguration {
@@ -74,6 +88,13 @@ public class AppConfiguration {
         public int getTitleRes();
         public int getIconRes();
         public boolean isVisible();
+    }
+
+    private static class DefaultBackendConfiguration extends BackendConfiguration {
+
+        public DefaultBackendConfiguration() {
+            super("");
+        }
     }
 
 }

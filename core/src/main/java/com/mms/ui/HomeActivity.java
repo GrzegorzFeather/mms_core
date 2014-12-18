@@ -8,16 +8,13 @@ import android.widget.TextView;
 
 import com.mms.MMSApplication;
 import com.mms.app.AppConfiguration;
-import com.mms.vendetta.R;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+import com.mms.R;
 
 public class HomeActivity extends MenuHostActivity {
 
-    @InjectView(R.id.toolbar) Toolbar mToolbar;
-    @InjectView(R.id.lbl_main_title) TextView mLblTitle;
-    @InjectView(R.id.lbl_main_subtitle) TextView mLblSubtitle;
+    private Toolbar mToolbar;
+    private TextView mLblTitle;
+    private TextView mLblSubtitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +30,9 @@ public class HomeActivity extends MenuHostActivity {
     }
 
     private void setupHome(){
-        ButterKnife.inject(this);
+        this.mToolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        this.mLblTitle = (TextView) this.findViewById(R.id.lbl_main_title);
+        this.mLblSubtitle = (TextView) this.findViewById(R.id.lbl_main_subtitle);
 
         this.mToolbar.inflateMenu(R.menu.main);
         this.mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {

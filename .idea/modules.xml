@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/mms.iml" filepath="$PROJECT_DIR$/mms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vendetta/vendetta.iml" filepath="$PROJECT_DIR$/vendetta/vendetta.iml" />
     </modules>
   </component>
 </project>

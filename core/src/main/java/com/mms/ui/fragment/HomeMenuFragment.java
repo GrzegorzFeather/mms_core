@@ -15,10 +15,9 @@ import android.view.ViewGroup;
 import com.mms.app.AppConfiguration;
 import com.mms.ui.MenuHostActivity;
 import com.mms.ui.adapter.HomeMenuAdapter;
-import com.mms.vendetta.R;
+import com.mms.R;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by GrzegorzFeathers on 10/27/14.
@@ -29,7 +28,7 @@ public class HomeMenuFragment extends Fragment {
 
     private View mRootView;
     private DrawerLayout mDrawerLayout;
-    @InjectView(R.id.recycler_menu_options) RecyclerView mRecyclerMenuOptionsView;
+    private RecyclerView mRecyclerMenuOptionsView;
 
     private RecyclerView.Adapter mRecyclerMenuOptionsAdapter;
     private RecyclerView.LayoutManager mRecyclerMenuOptionsManager;
@@ -47,6 +46,8 @@ public class HomeMenuFragment extends Fragment {
 
         ButterKnife.inject(this, this.mRootView);
 
+        this.mRecyclerMenuOptionsView = (RecyclerView)
+                this.mRootView.findViewById(R.id.recycler_menu_options);
         this.mRecyclerMenuOptionsView.setHasFixedSize(true);
 
         this.mRecyclerMenuOptionsManager = new LinearLayoutManager(this.getMenuHostActivity());

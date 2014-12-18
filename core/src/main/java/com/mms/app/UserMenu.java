@@ -2,7 +2,7 @@ package com.mms.app;
 
 import android.support.v4.app.Fragment;
 
-import com.mms.vendetta.R;
+import com.mms.R;
 
 /**
  * Created by GrzegorzFeathers on 12/17/14.

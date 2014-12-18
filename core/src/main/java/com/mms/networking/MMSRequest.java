@@ -14,11 +14,7 @@ public abstract class MMSRequest<T> {
     protected MMSResponseHandler<T> mResponseHandler;
     private MMSApiAsyncRequest mAsyncRequest;
 
-    protected MMSRequest(MMSResponseHandler<T> responseHandler){
-        this.mResponseHandler = responseHandler;
-    }
-
-    protected List<String> preProcessNotification(T response){
+    protected List<String> extractErrors(T response){
         if(response == null){
             return Arrays.asList("UnknownError");
         } else {
@@ -26,11 +22,15 @@ public abstract class MMSRequest<T> {
         }
     }
 
+    protected T preProcessResponse(T response){
+        return response;
+    }
+
     protected void delegateResponseToHandler(T response){
         if(this.mResponseHandler != null){
-            List<String> errors = this.preProcessNotification(response);
+            List<String> errors = this.extractErrors(response);
             if(errors == null || errors.isEmpty()){
-                this.mResponseHandler.onSuccess(response);
+                this.mResponseHandler.onSuccess(this.preProcessResponse(response));
             } else {
                 this.mResponseHandler.onFailure(errors);
             }
@@ -39,18 +39,25 @@ public abstract class MMSRequest<T> {
 
     protected abstract String getTag();
 
-    public void executeAsync(){
+    public void executeAsync(MMSResponseHandler<T> handler){
         Log.d(MMSApiManager.TAG, "Starting request asynchronously: " + this.getTag());
+        this.mResponseHandler = handler;
         this.mAsyncRequest = new MMSApiAsyncRequest();
         this.mAsyncRequest.execute();
     }
 
     public T executeOnThread(){
         Log.d(MMSApiManager.TAG, "Starting request synchronously: " + this.getTag());
-        return this.performRequest();
+        T response = null;
+        try {
+            response = this.performRequest();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return this.preProcessResponse(response);
     }
 
-    protected abstract T performRequest();
+    protected abstract T performRequest() throws Exception;
 
     public void cancelRequest(){
         if(this.mAsyncRequest != null){
@@ -63,7 +70,13 @@ public abstract class MMSRequest<T> {
 
         @Override
         protected T doInBackground(Void... params) {
-            return performRequest();
+            T response = null;
+            try {
+                response = performRequest();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return response;
         }
 
         @Override
