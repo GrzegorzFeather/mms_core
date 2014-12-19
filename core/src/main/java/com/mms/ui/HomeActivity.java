@@ -86,8 +86,6 @@ public class HomeActivity extends MenuHostActivity {
 
     @Override
     public void onHomeMenuOptionSelected(AppConfiguration.HomeMenuOption menuOption) {
-        //this.mLblSubtitle.setText(menuOption.getTitleRes());
-
         if(menuOption.equals(AppConfiguration.getDefaultMenuOption())){
             this.clearStack();
         } else {

@@ -12,7 +12,12 @@ import java.io.IOException;
  */
 public enum ContentType {
 
-    error(MMSModel.class), user(MMSUser.class), undefined(MMSModel.class);
+    user(MMSUser.class),
+    newslist(MMSNews.class),
+
+    // Failure types
+    error(MMSModel.class),
+    undefined(MMSModel.class);
 
     public static final TypeAdapter gsonAdapter = new ContentTypeAdapter();
 

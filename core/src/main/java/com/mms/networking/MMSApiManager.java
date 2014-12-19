@@ -10,7 +10,9 @@ import retrofit.RestAdapter;
 import retrofit.converter.GsonConverter;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Query;
 
 /**
  * Created by GrzegorzFeathers on 12/17/14.
@@ -79,6 +81,17 @@ public class MMSApiManager {
         @POST("/api/user")
         MMSResponse signIn(@Field("alias") String alias, @Field("loginType") int loginType,
                          @Field("email") String email, @Field("password") String password);
+
+        /**
+         *
+         * Retrieve the artist news
+         *
+         * @param alias
+         * @param cookie
+         * @return
+         */
+        @GET("/api/Artist/News")
+        MMSResponse getNews(@Query("alias") String alias, @Query("cookie") String cookie);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.mms.ui.fragment;
 
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -18,8 +19,6 @@ import com.mms.app.AppConfiguration;
 import com.mms.ui.MenuHostActivity;
 import com.mms.ui.adapter.HomeMenuAdapter;
 
-import butterknife.ButterKnife;
-
 /**
  * Created by GrzegorzFeathers on 10/27/14.
  */
@@ -30,7 +29,6 @@ public class HomeMenuFragment extends Fragment implements View.OnClickListener {
     private View mRootView;
     private DrawerLayout mDrawerLayout;
     private RecyclerView mRecyclerMenuOptionsView;
-
     private RecyclerView.Adapter mRecyclerMenuOptionsAdapter;
     private RecyclerView.LayoutManager mRecyclerMenuOptionsManager;
     private ActionBarDrawerToggle mDrawerToogle;
@@ -44,8 +42,6 @@ public class HomeMenuFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.mRootView = inflater.inflate(R.layout.fragment_home_menu, container, false);
-
-        ButterKnife.inject(this, this.mRootView);
 
         this.mRecyclerMenuOptionsView = (RecyclerView)
                 this.mRootView.findViewById(R.id.recycler_menu_options);
@@ -65,7 +61,9 @@ public class HomeMenuFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        this.mDrawerLayout = (DrawerLayout) this.getMenuHostActivity().findViewById(R.id.drawer_home);
+        this.mDrawerLayout = (DrawerLayout)
+                this.getMenuHostActivity().findViewById(R.id.drawer_home);
+        this.mDrawerLayout.setScrimColor(Color.parseColor("#30000000"));
         this.mDrawerToogle = new ActionBarDrawerToggle(
                 this.getMenuHostActivity(), this.mDrawerLayout,
                 this.getMenuHostActivity().getToolbar(), R.string.app_name, R.string.app_name){
