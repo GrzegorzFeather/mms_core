@@ -12,6 +12,8 @@ public abstract class MenuHostActivity extends ActionBarActivity {
 
     public abstract Toolbar getToolbar();
 
-    public abstract void updateContent(AppConfiguration.HomeMenuOption menuOption);
+    public abstract void setSubtitle(int subtitleRes);
+
+    public abstract void onHomeMenuOptionSelected(AppConfiguration.HomeMenuOption menuOption);
 
 }

@@ -7,22 +7,23 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mms.R;
 import com.mms.app.AppConfiguration;
 import com.mms.ui.MenuHostActivity;
 import com.mms.ui.adapter.HomeMenuAdapter;
-import com.mms.R;
 
 import butterknife.ButterKnife;
 
 /**
  * Created by GrzegorzFeathers on 10/27/14.
  */
-public class HomeMenuFragment extends Fragment {
+public class HomeMenuFragment extends Fragment implements View.OnClickListener {
 
     public static final String TAG = HomeMenuFragment.class.getSimpleName();
 
@@ -51,7 +52,8 @@ public class HomeMenuFragment extends Fragment {
         this.mRecyclerMenuOptionsView.setHasFixedSize(true);
 
         this.mRecyclerMenuOptionsManager = new LinearLayoutManager(this.getMenuHostActivity());
-        this.mRecyclerMenuOptionsAdapter = new HomeMenuAdapter(AppConfiguration.getMenuOptions());
+        this.mRecyclerMenuOptionsAdapter = new HomeMenuAdapter(
+                AppConfiguration.getMenuOptions(), this);
 
         this.mRecyclerMenuOptionsView.setLayoutManager(this.mRecyclerMenuOptionsManager);
         this.mRecyclerMenuOptionsView.setAdapter(this.mRecyclerMenuOptionsAdapter);
@@ -108,4 +110,21 @@ public class HomeMenuFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        this.mDrawerLayout.closeDrawer(Gravity.LEFT);
+        int position = this.mRecyclerMenuOptionsView.getChildPosition(v);
+        this.getMenuHostActivity().onHomeMenuOptionSelected(
+                AppConfiguration.getMenuOptions()[position]);
+    }
+
+    public boolean isDrawerOpen(){
+        return this.mDrawerLayout != null && this.mDrawerLayout.isDrawerOpen(R.id.fragment_home_menu);
+    }
+
+    public void closeDrawer(){
+        if(this.isDrawerOpen()){
+            this.mDrawerLayout.closeDrawer(Gravity.LEFT);
+        }
+    }
 }

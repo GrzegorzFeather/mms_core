@@ -9,6 +9,9 @@
 
     <!-- Home Menu Options -->
     <string name="home_menu_news">News</string>
+    <string name="home_menu_events">Events</string>
+    <string name="home_menu_discography">Discography</string>
+    <string name="home_menu_gallery">Gallery</string>
 
     <!-- Overflow menu option -->
     <string name="menu_logout">Logout</string>

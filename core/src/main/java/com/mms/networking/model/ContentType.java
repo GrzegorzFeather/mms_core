@@ -12,11 +12,23 @@ import java.io.IOException;
  */
 public enum ContentType {
 
-    error, user, undefined;
+    error(MMSModel.class), user(MMSUser.class), undefined(MMSModel.class);
 
     public static final TypeAdapter gsonAdapter = new ContentTypeAdapter();
 
+    private Class<? extends MMSModel> mAssociatedModelClass;
+
+    private ContentType(Class<? extends MMSModel> associatedModelClass){
+        this.mAssociatedModelClass = associatedModelClass;
+    }
+
+    public Class<? extends MMSModel> getAssociatedModelClass() {
+        return mAssociatedModelClass;
+    }
+
     public static class ContentTypeAdapter extends TypeAdapter<ContentType> {
+
+        private static final String TAG = ContentTypeAdapter.class.getSimpleName();
 
         @Override
         public void write(JsonWriter out, ContentType value) throws IOException {

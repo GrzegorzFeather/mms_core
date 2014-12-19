@@ -28,7 +28,8 @@
         </FrameLayout>
 
         <fragment android:id="@+id/fragment_home_menu"
-            android:layout_width="match_parent"
+            android:tag="HomeMenuFragment"
+            android:layout_width="@dimen/navigation_drawer_width"
             android:layout_height="match_parent"
             android:layout_gravity="left"
             android:name="com.mms.ui.fragment.HomeMenuFragment"

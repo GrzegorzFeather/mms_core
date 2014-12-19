@@ -20,9 +20,12 @@ import java.util.List;
 public class HomeMenuAdapter extends RecyclerView.Adapter<HomeMenuAdapter.ViewHolder> {
 
     private List<AppConfiguration.HomeMenuOption> mDataSet;
+    private View.OnClickListener mOnClickListener;
 
-    public HomeMenuAdapter(AppConfiguration.HomeMenuOption[] menuOptions){
+    public HomeMenuAdapter(AppConfiguration.HomeMenuOption[] menuOptions,
+            View.OnClickListener clickListener){
         this.updateContent(menuOptions);
+        this.mOnClickListener = clickListener;
     }
 
     private void updateContent(AppConfiguration.HomeMenuOption[] fullMenuOptions){
@@ -37,6 +40,7 @@ public class HomeMenuAdapter extends RecyclerView.Adapter<HomeMenuAdapter.ViewHo
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_home_option, parent, false);
+        rootView.setOnClickListener(this.mOnClickListener);
         return new ViewHolder(rootView);
     }
 

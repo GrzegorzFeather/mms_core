@@ -3,38 +3,48 @@ package com.mms.networking;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.mms.networking.model.ContentType;
+import com.mms.networking.model.MMSModel;
+import com.mms.networking.model.MMSResponse;
+
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by GrzegorzFeathers on 12/17/14.
  */
-public abstract class MMSRequest<T> {
+public abstract class MMSRequest<T extends MMSModel> {
 
     protected MMSResponseHandler<T> mResponseHandler;
     private MMSApiAsyncRequest mAsyncRequest;
 
-    protected List<String> extractErrors(T response){
-        if(response == null){
-            return Arrays.asList("UnknownError");
+    protected List<String> extractErrors(MMSResponse response){
+        if(response == null || response.getType().equals(ContentType.error)){
+            return response == null ? Arrays.asList("UnknownError")
+                    : Arrays.asList(response.getMessage());
         } else {
             return Arrays.asList();
         }
     }
 
-    protected T preProcessResponse(T response){
+    private MMSResponse preProcessResponse(MMSResponse response){
         return response;
     }
 
-    protected void delegateResponseToHandler(T response){
+    protected T delegate(MMSResponse response){
+        T responseContent = null;
+        List<String> errors = this.extractErrors(response);
+
         if(this.mResponseHandler != null){
-            List<String> errors = this.extractErrors(response);
-            if(errors == null || errors.isEmpty()){
-                this.mResponseHandler.onSuccess(this.preProcessResponse(response));
-            } else {
+            if(errors != null && !errors.isEmpty()){
                 this.mResponseHandler.onFailure(errors);
+            } else {
+                responseContent = (T) response.getContent().asResponseModel(response.getType());
+                this.mResponseHandler.onSuccess(responseContent);
             }
         }
+
+        return responseContent;
     }
 
     protected abstract String getTag();
@@ -48,16 +58,8 @@ public abstract class MMSRequest<T> {
 
     public T executeOnThread(){
         Log.d(MMSApiManager.TAG, "Starting request synchronously: " + this.getTag());
-        T response = null;
-        try {
-            response = this.performRequest();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return this.preProcessResponse(response);
+        return this.delegate(this.launchRequest());
     }
-
-    protected abstract T performRequest() throws Exception;
 
     public void cancelRequest(){
         if(this.mAsyncRequest != null){
@@ -66,22 +68,28 @@ public abstract class MMSRequest<T> {
         }
     }
 
-    private class MMSApiAsyncRequest extends AsyncTask<Void, Integer, T> {
+    private MMSResponse launchRequest(){
+        MMSResponse response = null;
+        try {
+            response = this.perform();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    protected abstract MMSResponse perform() throws Exception;
+
+    private class MMSApiAsyncRequest extends AsyncTask<Void, Integer, MMSResponse> {
 
         @Override
-        protected T doInBackground(Void... params) {
-            T response = null;
-            try {
-                response = performRequest();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return response;
+        protected MMSResponse doInBackground(Void... params) {
+            return launchRequest();
         }
 
         @Override
-        protected void onPostExecute(T response) {
-            delegateResponseToHandler(response);
+        protected void onPostExecute(MMSResponse response) {
+            delegate(response);
         }
 
         @Override
