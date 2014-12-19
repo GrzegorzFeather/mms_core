@@ -17,7 +17,10 @@ import java.util.List;
 /**
  * Created by GrzegorzFeathers on 12/17/14.
  */
-public class HomeMenuAdapter extends RecyclerView.Adapter<HomeMenuAdapter.ViewHolder> {
+public class HomeMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_MENU_ITEM = 1;
 
     private List<AppConfiguration.HomeMenuOption> mDataSet;
     private View.OnClickListener mOnClickListener;
@@ -37,35 +40,66 @@ public class HomeMenuAdapter extends RecyclerView.Adapter<HomeMenuAdapter.ViewHo
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View rootView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_home_option, parent, false);
-        rootView.setOnClickListener(this.mOnClickListener);
-        return new ViewHolder(rootView);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(viewType == TYPE_HEADER){
+            View rootView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.layout_home_header, parent, false);
+            return new HeaderViewHolder(rootView);
+        } else {
+            View rootView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.list_item_home_option, parent, false);
+            rootView.setOnClickListener(this.mOnClickListener);
+            return new MenuItemViewHolder(rootView);
+        }
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        AppConfiguration.HomeMenuOption option = this.getItem(position);
-        holder.mImgIcon.get().setImageResource(option.getIconRes());
-        holder.mLblTitle.get().setText(option.getTitleRes());
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if(this.getItemViewType(position) == TYPE_HEADER){
+
+        } else {
+            MenuItemViewHolder menuItemHolder = (MenuItemViewHolder) holder;
+            AppConfiguration.HomeMenuOption option = this.getItem(position);
+            menuItemHolder.mImgIcon.get().setImageResource(option.getIconRes());
+            menuItemHolder.mLblTitle.get().setText(option.getTitleRes());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return this.mDataSet.size();
+        return this.mDataSet.size() + 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position == 0 ? TYPE_HEADER : TYPE_MENU_ITEM;
     }
 
     public AppConfiguration.HomeMenuOption getItem(int position){
-        return this.mDataSet.get(position);
+        return this.mDataSet.get(position - 1);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
+
+        private WeakReference<ImageView> mImgProfilePicture;
+        private WeakReference<TextView> mLblProfileName;
+
+        public HeaderViewHolder(View rootView){
+            super(rootView);
+            this.mImgProfilePicture = new WeakReference<ImageView>(
+                    (ImageView) rootView.findViewById(R.id.img_profile_picture));
+            this.mLblProfileName = new WeakReference<TextView>(
+                    (TextView) rootView.findViewById(R.id.lbl_profile_name));
+        }
+
+    }
+
+    public static class MenuItemViewHolder extends RecyclerView.ViewHolder {
 
         private WeakReference<ImageView> mImgIcon;
         private WeakReference<TextView> mLblTitle;
 
-        public ViewHolder(View rootView) {
+        public MenuItemViewHolder(View rootView) {
             super(rootView);
             this.mImgIcon = new WeakReference<ImageView>(
                     (ImageView) rootView.findViewById(R.id.img_icon));

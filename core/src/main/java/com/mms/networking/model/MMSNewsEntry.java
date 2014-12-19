@@ -10,4 +10,15 @@ public class MMSNewsEntry implements MMSModel {
     private String content;
     private String date;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getDate() {
+        return date;
+    }
 }

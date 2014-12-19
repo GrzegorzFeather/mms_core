@@ -4,54 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ddffffff"
-    android:elevation="10dp">
-
-    <RelativeLayout android:id="@+id/layout_me"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <FrameLayout android:id="@+id/layout_bg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/img_band"
-                android:scaleType="centerCrop"/>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_gradient_bottom_top"/>
-
-        </FrameLayout>
-
-        <ImageView android:id="@+id/img_display_img"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/img_default_display_img"
-            android:contentDescription="@null"
-            android:layout_alignBottom="@+id/layout_bg"
-            android:layout_margin="5dp"/>
-
-        <com.mms.ui.widget.TypeFacedTextView
-            android:id="@+id/lbl_user_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/img_display_img"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:singleLine="true"
-            android:textSize="22sp"
-            mms:typeface="fonts/RobotoCondensed-Light.ttf"
-            android:layout_alignBottom="@+id/layout_bg"
-            android:textColor="@android:color/white"
-            android:text="Jorge Méndez"/>
-
-    </RelativeLayout>
+    android:background="@android:color/white">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_menu_options"

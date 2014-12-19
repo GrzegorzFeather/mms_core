@@ -27,10 +27,6 @@ public abstract class MMSRequest<T extends MMSModel> {
         }
     }
 
-    private MMSResponse preProcessResponse(MMSResponse response){
-        return response;
-    }
-
     protected T delegate(MMSResponse response){
         T responseContent = null;
         List<String> errors = this.extractErrors(response);
@@ -73,7 +69,8 @@ public abstract class MMSRequest<T extends MMSModel> {
         try {
             response = this.perform();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d(MMSApiManager.TAG, "Error: " + e.getClass());
+            //e.printStackTrace();
         }
         return response;
     }

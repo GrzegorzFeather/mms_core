@@ -113,7 +113,7 @@ public class HomeMenuFragment extends Fragment implements View.OnClickListener {
         this.mDrawerLayout.closeDrawer(Gravity.LEFT);
         int position = this.mRecyclerMenuOptionsView.getChildPosition(v);
         this.getMenuHostActivity().onHomeMenuOptionSelected(
-                AppConfiguration.getMenuOptions()[position]);
+                AppConfiguration.getMenuOptions()[position - 1]);
     }
 
     public boolean isDrawerOpen(){

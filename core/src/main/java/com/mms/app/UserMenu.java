@@ -15,9 +15,9 @@ import com.mms.ui.fragment.NewsFragment;
 public enum UserMenu implements AppConfiguration.HomeMenuOption {
 
     NEWS(NewsFragment.class, R.string.home_menu_news, R.drawable.ic_news, true),
-    EVENTS(EventsFragment.class, R.string.home_menu_events, R.drawable.ic_launcher, true),
-    DISCOGRAPHY(DiscographyFragment.class, R.string.home_menu_discography, R.drawable.ic_launcher, true),
-    GALLERY(GalleryFragment.class, R.string.home_menu_gallery, R.drawable.ic_launcher, true);
+    EVENTS(EventsFragment.class, R.string.home_menu_events, R.drawable.ic_events, true),
+    DISCOGRAPHY(DiscographyFragment.class, R.string.home_menu_discography, R.drawable.ic_discography, true),
+    GALLERY(GalleryFragment.class, R.string.home_menu_gallery, R.drawable.ic_gallery, true);
 
     public static final int VISIBLE_NAME = R.string.user_config_visible_name;
 
